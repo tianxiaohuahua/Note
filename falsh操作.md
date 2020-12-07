@@ -415,6 +415,128 @@ uint32_t WRITE_Flash_group(uint32_t *group,	uint32_t Flash_address)
 
 ## 3、按照链表写入
 
+最先定义：
+
+```c
+struct List
+{
+	int Serial_number;
+
+	uint32_t Flash_data[20];
+
+	struct List *node; //定义结构体指针，用来指向下一个节点
+};
+
+struct List Head; //定义链表的头，用来引出链表
+
+int i = 0;
+
+int j = 0;
+
+uint32_t group_an[20] = {20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1};
+
+uint32_t group_bn[20];
+
+struct List *test;
+
+uint32_t next_address;
+```
+
+前面需要用到的函数：
+
+```c
+/*
+ * 根据地址读取一个字的数据
+ * */
+uint32_t READ_Flash(uint32_t faddr)
+{
+	return *(uint32_t*)faddr;
+}
+
+
+/*
+ * 把20个字的数据从FLASH里面的数据读取到数组当中
+ */
+uint32_t READ_Flash_group(uint32_t *group,	uint32_t Flash_address)
+{
+	unsigned int i = 0;
+
+	uint32_t Next_Flash_address = 0;
+
+	for (	i=0; i<20; i++)
+	{
+		Next_Flash_address = Flash_address + 4 * i ; //计算得到下一个地址
+
+		group[i] = READ_Flash	(	Next_Flash_address	); //读取地址上面的数据保存在数组内
+	}
+	return Next_Flash_address + 4; //返回值为下一个地址
+}
+
+/*
+ *   把20个字的数据写入到Flash当中
+ *  */
+uint32_t WRITE_Flash_group(uint32_t *group,	uint32_t Flash_address)
+{
+	unsigned int i = 0;
+
+	uint32_t Next_Flash_address = 0;
+
+	HAL_FLASH_Unlock(); //对flash解锁
+
+	for (	i=0; i<20; i++)
+	{
+		Next_Flash_address = Flash_address + 4 * i ; //计算得到下一个地址
+
+		HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, Next_Flash_address, group[i]); //在目标地址上面写入数据；
+	}
+	HAL_FLASH_Lock(); //锁住flash
+
+	return Next_Flash_address + 4; //返回值为下一个地址
+}
+
+
+/*
+ *建立新的链表节点，并对新的节点赋值。
+ * 输入变量是链表的头指针，和要存放的目标变量值
+ * 需要通过循环增加链表的节点以及赋值
+ * */
+unsigned char Linked_list_node_flag = 1; //为了方便操作指针的头，对循环的第一次操作进行限制
+
+long int  Linked_list_node_Flash_address;
+
+void Establish_linked_list_node(struct List *Old_node ,int value,	uint8_t Flash_address)
+{
+	static struct List *_node; //建立一个用来遍历链表的节点
+
+	if(Linked_list_node_flag == 1) //一开始建立链表的头
+	{
+		Linked_list_node_Flash_address = READ_Flash_group(Old_node->Flash_data,	Flash_address); //读取FLASH内的数据
+
+		Old_node->Serial_number = value; //对链表的头进行赋值
+
+		Old_node->node = NULL; //对链表的指针进行赋值清空
+
+		_node = Old_node; //储存链表的头地址
+
+		Linked_list_node_flag = 0; //改变循环标志
+	}
+	else //第二次循环在此处开始执行
+	{
+		struct List *New_node = (struct List*)malloc(sizeof(Head)); //开辟一块新的内存
+
+		Linked_list_node_Flash_address = READ_Flash_group(New_node->Flash_data,	Linked_list_node_Flash_address); //读取FLASH内的数据
+
+		New_node->node = NULL; //新的链表的地址赋值
+
+		New_node->Serial_number = value; //新的链表的节点赋值
+
+		_node->node = New_node; //循环至下一个节点
+
+		_node = New_node; //移动链表操作的节点
+	}
+}
+```
+
 最终可以实现出通过链表读取FLASH内的内容，再把读取出来的内容重新以链表的形式写入到指定的位置。
 
 ```c
