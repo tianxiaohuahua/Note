@@ -28,6 +28,22 @@
 
 
 
+# XXX The application could not be installed: INSTALL_FAILED_TEST_ONLY
+
+解决办法：
+
+gradle.properties文件 
+
+```java
+  android.injected.testOnly=false
+```
+
+
+
+
+
+
+
 # 二、设计一个基础的线性布局
 
 
