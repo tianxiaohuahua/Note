@@ -2,11 +2,15 @@
 
 [TOC]
 
-记录安卓 Android studio 使用过程
+# 参考链接
 
 安装Android studio 教程：https://blog.csdn.net/zxs0222/article/details/104387956
 
 参考视频链接：https://www.bilibili.com/video/BV17K411P76a
+
+《Kotlin编程实践》本站译者乔禹昂译 http://www.kotlincn.net/docs/reference/
+
+**安卓开发者：https://developer.android.google.cn/guide/components/fundamentals**
 
 # 一、安卓工程文件结构：
 
