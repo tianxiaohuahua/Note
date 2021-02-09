@@ -1,6 +1,6 @@
 ​	
 
-1、在文件目录上的java文件夹新建一个java class。
+## 1、在文件目录上的java文件夹新建一个java class。
 
 这里我新建的类为DisplayMessageActivity。在安卓里，一般一个类会结合一个xml界面文件。也就是一个类就是一个界面。
 
@@ -12,7 +12,7 @@ extends AppCompatActivity
 
 
 
-2、来到AndroidMainfest.xml文件，添加这个新界面，MainActivity下面添加这个界面：
+## 2、来到AndroidMainfest.xml文件，添加这个新界面，MainActivity下面添加这个界面：
 
 ```xml
 <activity android:name=".DisplayMessageActivity"
@@ -24,9 +24,9 @@ extends AppCompatActivity
         </activity>
 ```
 
-3、建立一个新的界面布局，打开layout文件夹，右键添加一个Layout文件。这里我把这个文件命名为：activity_display_message
+## 3、建立一个新的界面布局，打开layout文件夹，右键添加一个Layout文件。这里我把这个文件命名为：activity_display_message
 
-4、回到 DisplayMessageActivity 这个文件，在类里面添加onCreate方法：
+## 4、回到 DisplayMessageActivity 这个文件，在类里面添加onCreate方法：
 
 ```java
  @Override
@@ -36,7 +36,7 @@ protected void onCreate(Bundle savedInstanceState) {
 }
 ```
 
-5、为了方便打开这个界面，我在MainActivity界面里面添加了一个启动按钮，在按钮内添加一个onClick属性，当按下这个按钮的时候就会启动新建立的 DisplayMessageActivity 界面。
+## 5、为了方便打开这个界面，我在MainActivity界面里面添加了一个启动按钮，在按钮内添加一个onClick属性，当按下这个按钮的时候就会启动新建立的 DisplayMessageActivity 界面。
 
 在MainActivity里面添加一个方法：
 
@@ -52,7 +52,7 @@ public void sendMessage(View view) {
 
 运行后就可以查看效果。
 
-6、在两个Activity之间传递变量的值：
+## 6、在两个Activity之间传递变量的值：
 
 使用putExtra方法：
 

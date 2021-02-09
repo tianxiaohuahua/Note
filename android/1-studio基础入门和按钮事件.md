@@ -125,15 +125,15 @@ private Button bt2;  //建立一个私有的按钮变量
 
 bt2 = findViewById(R.id.bt2);
 
-        /*
-        * 新建一个匿名内部类
-        */
-        bt2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i("MainActivity","匿名内部类的按钮被点击"); //显示调试信息，大打印出来
-            }
-        });
+/*
+ * 新建一个匿名内部类
+ */
+bt2.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        Log.i("MainActivity","匿名内部类的按钮被点击"); //显示调试信息，大打印出来
+    }
+});
 ```
 
 ![1-6](D:\FILE\笔记\Note\photos for note\1-6.PNG)
