@@ -34,7 +34,7 @@ uniapp基础知识—大总结：https://blog.csdn.net/john_QY/article/details/1
 
 **新建 -> 1项目 ->  uni-app +项目名称 +空模板**
 
-![](D:\FILE\笔记\Note\photos for note\1.PNG)
+![](./photos for note/1.PNG)
 
 ## 2、添加一个新的界面
 
